@@ -22,6 +22,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/xanzy/go-gitlab"
 	"strconv"
 
 	"github.com/spf13/cobra"
@@ -60,7 +61,7 @@ func deleteProjectHook(hook string, project string) error {
 	if err != nil {
 		return err
 	}
-	projectInfo, _, err := git.Projects.GetProject(project)
+	projectInfo, _, err := git.Projects.GetProject(project, &gitlab.GetProjectOptions{})
 	if err != nil {
 		return err
 	}

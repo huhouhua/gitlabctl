@@ -63,7 +63,7 @@ func editRelease(project string, tag string, opts *gitlab.UpdateReleaseOptions) 
 	if err != nil {
 		return nil, err
 	}
-	release, _, err := git.Tags.UpdateRelease(project, tag, opts)
+	release, _, err := git.Releases.UpdateRelease(project, tag, opts)
 	if err != nil {
 		return nil, err
 	}

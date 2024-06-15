@@ -63,7 +63,7 @@ func descProject(project string) (*gitlab.Project, error) {
 	if err != nil {
 		return nil, err
 	}
-	projectInfo, _, err := git.Projects.GetProject(project)
+	projectInfo, _, err := git.Projects.GetProject(project, &gitlab.GetProjectOptions{})
 	if err != nil {
 		return nil, err
 	}

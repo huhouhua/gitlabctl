@@ -74,7 +74,7 @@ func descUser(uid int) (*gitlab.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	userInfo, _, err := git.Users.GetUser(uid)
+	userInfo, _, err := git.Users.GetUser(uid, gitlab.GetUsersOptions{})
 	if err != nil {
 		return nil, err
 	}

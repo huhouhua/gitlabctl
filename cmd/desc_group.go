@@ -61,7 +61,7 @@ func descGroup(group string) (*gitlab.Group, error) {
 	if err != nil {
 		return nil, err
 	}
-	groupInfo, _, err := git.Groups.GetGroup(group)
+	groupInfo, _, err := git.Groups.GetGroup(group, &gitlab.GetGroupOptions{})
 	if err != nil {
 		return nil, err
 	}

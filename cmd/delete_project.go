@@ -22,6 +22,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/xanzy/go-gitlab"
 
 	"github.com/spf13/cobra"
 )
@@ -54,7 +55,7 @@ func deleteProject(project string) error {
 	if err != nil {
 		return err
 	}
-	projectInfo, _, err := git.Projects.GetProject(project)
+	projectInfo, _, err := git.Projects.GetProject(project, &gitlab.GetProjectOptions{})
 	if err != nil {
 		return err
 	}

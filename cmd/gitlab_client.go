@@ -10,10 +10,10 @@ import (
 
 func newBasicAuthClient(username, password,
 	basehttpURL string) (*gitlab.Client, error) {
-	gitlabClient, err := gitlab.NewBasicAuthClient(nil,
-		basehttpURL,
+	gitlabClient, err := gitlab.NewBasicAuthClient(
 		username,
 		password,
+		gitlab.WithBaseURL(basehttpURL),
 	)
 	if err != nil {
 		return nil, err
@@ -22,16 +22,16 @@ func newBasicAuthClient(username, password,
 }
 
 func newClient(privateToken, apihttpURL string) (*gitlab.Client, error) {
-	gitlabClient := gitlab.NewClient(nil, privateToken)
-	if err := gitlabClient.SetBaseURL(apihttpURL); err != nil {
+	gitlabClient, err := gitlab.NewClient(privateToken, gitlab.WithBaseURL(apihttpURL))
+	if err != nil {
 		return nil, err
 	}
 	return gitlabClient, nil
 }
 
 func newOAuthClient(oAuthToken, apihttpURL string) (*gitlab.Client, error) {
-	gitlabClient := gitlab.NewOAuthClient(nil, oAuthToken)
-	if err := gitlabClient.SetBaseURL(apihttpURL); err != nil {
+	gitlabClient, err := gitlab.NewOAuthClient(oAuthToken, gitlab.WithBaseURL(apihttpURL))
+	if err != nil {
 		return nil, err
 	}
 	return gitlabClient, nil

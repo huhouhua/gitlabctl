@@ -21,6 +21,7 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	"strconv"
 
@@ -73,7 +74,15 @@ func runEditGroup(cmd *cobra.Command, group string) error {
 				group, err)
 		}
 	}
-	editedGroup, err := editGroup(gid, (*gitlab.UpdateGroupOptions)(opts))
+	optstr, err := json.Marshal(opts)
+	if err != nil {
+		return err
+	}
+	opt := &gitlab.UpdateGroupOptions{}
+	if err = json.Unmarshal(optstr, opt); err != nil {
+		return err
+	}
+	editedGroup, err := editGroup(gid, opt)
 	if err != nil {
 		return err
 	}

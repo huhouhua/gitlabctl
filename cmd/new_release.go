@@ -67,7 +67,8 @@ func newRelease(project string, tag string, opts *gitlab.CreateReleaseOptions) (
 	if err != nil {
 		return nil, err
 	}
-	release, _, err := git.Tags.CreateRelease(project, tag, opts)
+	opts.TagName = &tag
+	release, _, err := git.Releases.CreateRelease(project, opts)
 	if err != nil {
 		return nil, err
 	}

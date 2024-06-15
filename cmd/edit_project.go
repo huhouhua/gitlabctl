@@ -21,6 +21,7 @@
 package cmd
 
 import (
+	"encoding/json"
 	"github.com/spf13/cobra"
 	gitlab "github.com/xanzy/go-gitlab"
 )
@@ -61,7 +62,16 @@ func runEditProject(cmd *cobra.Command, project string) error {
 	if err != nil {
 		return err
 	}
-	editedProject, err := editProject(project, (*gitlab.EditProjectOptions)(opts))
+	optstr, err := json.Marshal(opts)
+	if err != nil {
+		return err
+	}
+	opt := &gitlab.EditProjectOptions{}
+	if err = json.Unmarshal(optstr, opt); err != nil {
+		return err
+	}
+
+	editedProject, err := editProject(project, opt)
 	if err != nil {
 		return err
 	}

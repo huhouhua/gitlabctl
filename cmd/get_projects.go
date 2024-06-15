@@ -21,6 +21,7 @@
 package cmd
 
 import (
+	"encoding/json"
 	"github.com/spf13/cobra"
 	gitlab "github.com/xanzy/go-gitlab"
 )
@@ -83,8 +84,15 @@ func getProjects(opts *gitlab.ListProjectsOptions) ([]*gitlab.Project, error) {
 }
 
 func runGetProjectsFromGroup(cmd *cobra.Command) error {
-	opts := (*gitlab.ListGroupProjectsOptions)(assignListProjectOptions(cmd))
-	projects, err := getProjectsFromGroup(getFlagString(cmd, "from-group"), opts)
+	optstr, err := json.Marshal(assignListProjectOptions(cmd))
+	if err != nil {
+		return err
+	}
+	opt := &gitlab.ListGroupProjectsOptions{}
+	if err = json.Unmarshal(optstr, opt); err != nil {
+		return err
+	}
+	projects, err := getProjectsFromGroup(getFlagString(cmd, "from-group"), opt)
 	if err != nil {
 		return err
 	}

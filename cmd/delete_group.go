@@ -22,6 +22,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/xanzy/go-gitlab"
 	"strconv"
 
 	"github.com/spf13/cobra"
@@ -68,7 +69,7 @@ func deleteGroup(group string) error {
 				group, err)
 		}
 	}
-	_, err = git.Groups.DeleteGroup(gid)
+	_, err = git.Groups.DeleteGroup(gid, &gitlab.DeleteGroupOptions{})
 	if err != nil {
 		return err
 	}

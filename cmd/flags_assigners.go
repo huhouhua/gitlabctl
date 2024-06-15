@@ -159,7 +159,7 @@ func assignCreateProjectOptions(cmd *cobra.Command) (*gitlab.CreateProjectOption
 		opts.Visibility = getFlagVisibility(cmd)
 	}
 	if cmd.Flag("public-jobs").Changed {
-		opts.PublicJobs = gitlab.Bool(getFlagBool(cmd, "public-jobs"))
+		opts.PublicBuilds = gitlab.Bool(getFlagBool(cmd, "public-jobs"))
 	}
 	if cmd.Flag("only-allow-merge-if-pipeline-succeeds").Changed {
 		opts.OnlyAllowMergeIfPipelineSucceeds =
